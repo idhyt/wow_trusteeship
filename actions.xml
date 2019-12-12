@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<actions>
+
+   <action type="misc">
+      <item key="friend">o</item>
+      <item key="delay">10</item>
+      <item key="offline">10</item>
+   </action>
+
+   <action type="skill">
+      <item key="1">冰箱</item>
+      <item key="2">冰盾</item>
+      <item key="3">冰霜结界</item>
+      <item key="4">法力护盾</item>
+      <item key="5">火焰结界</item>
+      <item key="e">冰环</item>
+      <item key="g">闪现</item>
+      <item key="c">冰锥</item>
+   </action>
+
+
+   <action type="move">
+      <item key="W">前进</item>
+      <item key="S">后退</item>
+      <item key="A">向左</item>
+      <item key="D">向右</item>
+   </action>
+
+
+   <action type="speak">
+      <item key="1">前进</item>
+      <item key="2"> Hello World! </item>
+      <item key="3"> 今天又是充满希望的一天! </item>
+      <item key="4"> hey! girls! </item>
+      <item key="5"> 来了老铁! </item>
+      <item key="6"> 天气预报: 今天夜里阴有时有小雨并渐止转阴到多云,明天多云,偏北风5到6级阵风7级,明天逐渐减弱为4到5级阵风6到7级,明晨最低气温8度左右! </item>
+      <item key="7"> 我有个朋友,讲了一生电话,有一天他挂了</item>
+      <item key="8"> 一个小和尚问方丈:师父,我念经的时候可以吸烟吗？方丈怒道:不行！ 另一小和尚问:师父,我吸烟的时候可以念经吗？"方丈:"当然可以" </item>
+      <item key="9"> 小明:现在人多,过一会儿再来,可能就不用排队了说不定还能抢个板凳或者沙发呢 </item>
+   </action>
+
+</actions>
