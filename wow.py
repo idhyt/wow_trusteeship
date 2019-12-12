@@ -195,7 +195,7 @@ class Speak(Action):
             self.type_string_enter("{}: {}.".format(self.name, v))
         else:
             self.type_string_enter("{}.".format(v))
-        
+
 
 die_times = 0
 misc_friend, misc_delay, misc_offline = "o", 10, 10
@@ -270,6 +270,9 @@ def wow_trusteeship():
     GUI().alert(msg='Make sure that WOW in foreground!', title='Note')
     # GUI().left_click(rep=2)
 
+    if not find_feature_picture():
+        return False
+
     if not actions_loading():
         return False
 
@@ -291,8 +294,9 @@ def wow_trusteeship():
 
 
 def main():
-
     wow_trusteeship()
+
+    os.system("pause")
 
 
 if __name__ == '__main__':
