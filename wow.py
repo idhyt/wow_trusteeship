@@ -166,7 +166,6 @@ class Action(GUI):
     def choice(self):
         k = random.choice(list(self.action))
         v = self.action.get(k)
-        log.debug("{} {}: {}".format(self.name, k, v))
         return k, v
 
     def call(self):
