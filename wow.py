@@ -55,7 +55,113 @@ log = Logger('wow.log', level='debug').logger
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 
+_CERT_KEY = "M.jiEp[+*Ay0b^p"
+
+
+def get_sign_key(salt, v):
+    import hmac
+    if isinstance(v, str):
+        sign_byte = v.encode("utf-8")
+    else:
+        sign_byte = v
+
+    return hmac.new(salt.encode("utf-8"), sign_byte, 'sha1').hexdigest()
+
+
+'''
+
+def get_period_token(key=_CERT_KEY, expired=1, payload=""):
+    """
+    :param key:
+    :param expired: period of validity, minutes.
+    :param payload
+    :return:
+    """
+    import base64
+    ts_str = str(time.time() + expired * 60)
+    sign_str = "{}:{}".format(ts_str, str(payload))
+    token = "{expired}:{sha1_key}:{payload}".format(
+        expired=ts_str,
+        sha1_key=get_sign_key(key, sign_str),
+        payload=payload
+    )
+    b64_token = base64.urlsafe_b64encode(token.encode("utf-8"))
+    return b64_token.decode("utf-8")
+'''
+
+
+def token_validity_check(key=_CERT_KEY, token=""):
+    import base64
+    try:
+        token_str = base64.urlsafe_b64decode(token).decode('utf-8')
+    except:
+        return False, "token decode failed!"
+
+    token_list = token_str.split(':')
+    if len(token_list) != 3:
+        return False, "token invalid format!"
+
+    ts_str, sha1_key, payload = token_list[0], token_list[1], token_list[2]
+
+    if float(ts_str) < time.time():
+        # token expired
+        return False, "token expired!"
+
+    sign_str = "{}:{}".format(ts_str, str(payload))
+    sign_sha1 = get_sign_key(key, sign_str)
+    if sign_sha1 != sha1_key:
+        return False, "token certification failed!"
+
+    return True, payload
+
+
+def get_licence():
+    from xml.dom.minidom import parse
+
+    xml_path = os.path.join(current_dir, "actions.xml")
+    if not os.path.isfile(xml_path):
+        log.error("{} not found!")
+        return False
+
+    try:
+        dom_tree = parse(xml_path)
+        collection = dom_tree.documentElement
+        items = collection.getElementsByTagName("licence")
+        if not items:
+            log.error("licence not found in {}".format(xml_path))
+            return False
+        lk = items[0].childNodes[0].data
+        log.debug("licence: {}".format(lk))
+        return lk
+
+    except Exception as e:
+        log.error(e)
+        return False
+
+
+def check_licence(func):
+    """
+    :param func:
+    :return:
+    """
+    def inner(*args, **kwargs):
+        lk = get_licence()
+        if not lk:
+            exit(-1)
+
+        r, i = token_validity_check(token=lk)
+        if not r:
+            log.error("licence check failed: {}".format(i))
+            exit(-1)
+
+        log.debug("licence check success: {}".format(i))
+        return func(*args, **kwargs)
+
+    return inner
+
+
 # -------------------------------- config -------------------------------- #
+
 
 actions_config = {
     "misc": {
@@ -265,6 +371,7 @@ def check_online():
     return RET_SUC
 
 
+@check_licence
 def wow_trusteeship():
     GUI().alert(msg='Make sure that WOW in foreground!', title='Note')
     # GUI().left_click(rep=2)
@@ -293,6 +400,7 @@ def wow_trusteeship():
 
 
 def main():
+
     wow_trusteeship()
 
     os.system("pause")
