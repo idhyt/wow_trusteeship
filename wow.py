@@ -7,6 +7,12 @@
 
         open wow friend panel, screenshots features pictures(eg:好友名单), save to fp.png
         python wow.py
+
+        pack to exe:
+
+        pip install https://github.com/pyinstaller/pyinstaller/archive/develop.tar.gz
+        pyinstaller -F -i wow.ico wow.py
+        
 """
 
 
