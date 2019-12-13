@@ -12,7 +12,7 @@
 
         pip install https://github.com/pyinstaller/pyinstaller/archive/develop.tar.gz
         pyinstaller -F -i wow.ico wow.py
-        
+
 """
 
 
@@ -413,4 +413,11 @@ def main():
 
 
 if __name__ == '__main__':
+    print("")
+    print('\033[33;1m================================================\033[0m')
+    print('\033[33;1m=        WOW Prevent Drops. @LanDaTou          =\033[0m')
+    print('\033[33;1m=         For testing only,                    =\033[0m')
+    print('\033[33;1m=          Do not use for illegal purpose!!!   =\033[0m')
+    print('\033[33;1m================================================\033[0m')
+    print("")
     main()
