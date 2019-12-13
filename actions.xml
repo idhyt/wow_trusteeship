@@ -2,6 +2,8 @@
 
 <actions>
 
+   <licence>MTU3NjI0NzI4My40NjcxMDQ6MjI2ZDQxNjJlNzJiYWI1ODcwZmY4NmNhZGI1NWY0YzU5Mzg5NjM3NzpsYW5kYXRvdQ==</licence>
+
    <action type="misc">
       <item key="friend">o</item>
       <item key="delay">10</item>
