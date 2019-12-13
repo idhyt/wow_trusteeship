@@ -15,7 +15,6 @@
 
 """
 
-
 import os
 import platform
 import time
@@ -126,7 +125,7 @@ def get_licence():
 
     xml_path = os.path.join(current_dir, "actions.xml")
     if not os.path.isfile(xml_path):
-        log.error("{} not found!")
+        log.error("{} not found!".format(xml_path))
         return False
 
     try:
@@ -153,12 +152,12 @@ def check_licence(func):
     def inner(*args, **kwargs):
         lk = get_licence()
         if not lk:
-            exit(-1)
+            return
 
         r, i = token_validity_check(token=lk)
         if not r:
             log.error("licence check failed: {}".format(i))
-            exit(-1)
+            return
 
         log.debug("licence check success: {}".format(i))
         return func(*args, **kwargs)
@@ -188,7 +187,7 @@ def actions_loading():
 
     xml_path = os.path.join(current_dir, "actions.xml")
     if not os.path.isfile(xml_path):
-        log.error("{} not found!")
+        log.error("{} not found!".format(xml_path))
         return False
 
     try:
@@ -379,7 +378,7 @@ def check_online():
 
 @check_licence
 def wow_trusteeship():
-    GUI().alert(msg='Make sure that WOW in foreground!', title='Note')
+    # GUI().alert(msg='Make sure that WOW in foreground!', title='Note')
     # GUI().left_click(rep=2)
 
     if not find_feature_picture():
@@ -406,6 +405,8 @@ def wow_trusteeship():
 
 
 def main():
+    print('Make sure that WOW in foreground!!!')
+    os.system("pause")
 
     wow_trusteeship()
 
